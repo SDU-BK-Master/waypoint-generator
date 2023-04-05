@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "mtO0c/n3ZncvFqRAA4O5EVyl4fchGLRS4hJyCL7x8nG7xe6Bh65FzJiXnhXy51UbHt1A73bBf+yVmciH+gPRoQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\benja\\source\\repos\\SDU-BK-Master\\waypoint-generator\\waypoint-generator\\waypoint-generator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\benja\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\benja\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\benja\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.17.2\\microsoft.visualstudio.azure.containers.tools.targets.1.17.2.nupkg.sha512",
+    "C:\\Users\\benja\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\benja\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\benja\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\benja\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
