@@ -24,14 +24,20 @@ namespace asset_management.Controllers
 
         // GET api/<AntennaController>/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult GetByID(int id)
         {
             return Ok(_scanPlanService.GetById(id));
         }
 
+        [HttpGet("mission/{id}")]
+        public IActionResult GetByMissionID(int id)
+        {
+            return Ok(_scanPlanService.GetAllByMissionId(id));
+        }
+
         // POST api/<AntennaController>
         [HttpPost]
-        public IActionResult Post([FromBody] BaseScanPlan model)
+        public IActionResult Post([FromBody] ScanPlanCreateRequest model)
         {
             var drone = _scanPlanService.Create(model);
 
@@ -40,7 +46,7 @@ namespace asset_management.Controllers
 
         // PUT api/<AntennaController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] BaseScanPlan model)
+        public IActionResult Put(int id, [FromBody] ScanPlanUpdateRequest model)
         {
             var drone = _scanPlanService.Update(id, model);
             return Ok(drone);

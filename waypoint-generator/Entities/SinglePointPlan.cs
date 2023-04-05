@@ -4,12 +4,14 @@ public class SinglePointPlan : BaseScanPlan
     public double OffsetAzimuth { get; set; }
     public double OffsetElevation { get; set; }
     public double Radius { get; set; }
-    public int Polarization { get; set; }
-
+    public PolarizationEnum Polarization { get; set; }
     public enum PolarizationEnum
     {
         Co,
         Cross
     }
 
+
 }
+
+

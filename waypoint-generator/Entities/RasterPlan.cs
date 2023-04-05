@@ -11,24 +11,27 @@ public class RasterPlan : BaseScanPlan
     public double Speed { get; set; }
     public double Radius { get; set; }
 
-    public enum Polarization
+    public PlaneEnum Plane { get; set; }
+    public PolarizationEnum Polarization { get; set; }
+    public DirectionEnum Direction { get; set; }
+
+    public enum PolarizationEnum
     {
         Co,
         Cross
     }
 
-    public enum Direction
+    public enum DirectionEnum
     {
         Increasing,
         Decreasing,
-        Alternating
     }
-    public enum Plane
+    public enum PlaneEnum
     {
         Azimuth,
         Elevation,
         Diagonal
     }
-
-
 }
+
+

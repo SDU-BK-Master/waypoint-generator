@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,16 +10,18 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace waypoint_generator.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230405195049_new_columns2")]
+    partial class new_columns2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.4");
 
             modelBuilder.Entity("BaseCalibrationPlan", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -27,12 +30,14 @@ namespace waypoint_generator.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Comment")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("MissionID")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Type")
@@ -54,12 +59,14 @@ namespace waypoint_generator.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Comment")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("MissionID")
+                    b.Property<int?>("MissionID")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ScanPlanType")
@@ -144,13 +151,13 @@ namespace waypoint_generator.Migrations
                 {
                     b.HasBaseType("BaseScanPlan");
 
-                    b.Property<int>("Direction")
+                    b.Property<int?>("Direction")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Plane")
+                    b.Property<int?>("Plane")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Polarization")
+                    b.Property<int?>("Polarization")
                         .HasColumnType("INTEGER");
 
                     b.Property<double>("Radius")
@@ -187,7 +194,7 @@ namespace waypoint_generator.Migrations
                     b.Property<double>("AzimuthStop")
                         .HasColumnType("REAL");
 
-                    b.Property<int>("Direction")
+                    b.Property<int?>("Direction")
                         .HasColumnType("INTEGER");
 
                     b.Property<double>("ElevationStart")
@@ -199,10 +206,10 @@ namespace waypoint_generator.Migrations
                     b.Property<double>("ElevationStop")
                         .HasColumnType("REAL");
 
-                    b.Property<int>("Plane")
+                    b.Property<int?>("Plane")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Polarization")
+                    b.Property<int?>("Polarization")
                         .HasColumnType("INTEGER");
 
                     b.Property<double>("Radius")

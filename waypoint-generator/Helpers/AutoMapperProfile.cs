@@ -1,8 +1,5 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Components.Routing;
-using System.Text;
 using waypoint_generator.Models.CalibrationPlan;
-using waypoint_generator.Models.RasterPlan;
 using waypoint_generator.Models.ScanPlan;
 
 public class AutoMapperProfile : Profile

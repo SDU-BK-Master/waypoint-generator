@@ -1,15 +1,14 @@
-using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using waypoint_generator.Models.ScanPlan;
 
 public interface IScanPlanService
 {
-    IEnumerable<BaseScanPlan> GetAll();
+    Dictionary<string, object> GetAll();
     BaseScanPlan GetById(int id);
-    BaseScanPlan Create(BaseScanPlan model);
-    BaseScanPlan Update(int id, BaseScanPlan model);
+    Dictionary<string, object> GetAllByMissionId(int missionId);
+    BaseScanPlan Create(ScanPlanCreateRequest model);
+    BaseScanPlan Update(int id, ScanPlanUpdateRequest model);
     void Delete(int id);
 }
 
@@ -24,9 +23,20 @@ public class ScanPlanService : IScanPlanService
         _mapper = mapper;
     }
 
-    public IEnumerable<BaseScanPlan> GetAll()
+    public Dictionary<string, object> GetAll()
     {
-        return _context.ScanPlans;
+        var single_point = _context.ScanPlans.OfType<SinglePointPlan>().ToList();
+        var principal = _context.ScanPlans.OfType<PrincipalPlan>().ToList();
+        var raster = _context.ScanPlans.OfType<RasterPlan>().ToList();
+
+        var plan_dict = new Dictionary<string, object>
+        {
+            { "SinglePointScans", single_point },
+            { "PrincipalScans", principal },
+            { "RasterScans", raster }
+        };
+
+        return plan_dict;
     }
 
     public BaseScanPlan GetById(int id)
@@ -35,15 +45,51 @@ public class ScanPlanService : IScanPlanService
         if (scanPlan == null) throw new KeyNotFoundException("Scan plan not found");
         return scanPlan;
     }
-
-    public BaseScanPlan Create(BaseScanPlan model)
+    public Dictionary<string, object> GetAllByMissionId(int missionId)
     {
-        _context.ScanPlans.Add(model);
-        _context.SaveChanges();
-        return model;
+        var single_point = _context.ScanPlans.Where(Plan => Plan.MissionID == missionId).OfType<SinglePointPlan>().ToList();
+        var principal = _context.ScanPlans.Where(Plan => Plan.MissionID == missionId).OfType<PrincipalPlan>().ToList();
+        var raster = _context.ScanPlans.Where(Plan => Plan.MissionID == missionId).OfType<RasterPlan>().ToList();
+
+        var plan_dict = new Dictionary<string, object>
+        {
+            { "SinglePointPlans", single_point },
+            { "PrincipalPlans", principal },
+            { "RasterPlans", raster }
+        };
+ 
+        return plan_dict;
+    }
+    public BaseScanPlan Create(ScanPlanCreateRequest model)
+    {
+        BaseScanPlan baseplan;
+
+        switch (model.Type)
+        {
+            case 0:
+                baseplan = _mapper.Map<SinglePointPlan>(model);
+                _context.ScanPlans.Add(baseplan);
+                _context.SaveChanges();
+                return baseplan;
+            case 1:
+                baseplan = _mapper.Map<PrincipalPlan>(model);
+                _context.ScanPlans.Add(baseplan);
+                _context.SaveChanges();
+                return baseplan;
+            case 2:
+                baseplan = _mapper.Map<RasterPlan>(model);
+                _context.ScanPlans.Add(baseplan);
+                _context.SaveChanges();
+                return baseplan;
+
+            default:
+                throw new KeyNotFoundException();
+        }
+
+        
     }
 
-    public BaseScanPlan Update(int id, BaseScanPlan model)
+    public BaseScanPlan Update(int id, ScanPlanUpdateRequest model)
     {
         var scanPlan = GetById(id);
 
