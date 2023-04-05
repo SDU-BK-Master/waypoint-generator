@@ -1,4 +1,4 @@
-public class RollAlignment : BaseCalibrationPlan
+public class RollAlignmentPlan : BaseCalibrationPlan
 {
     public int Duration { get; set; }
     public float OffsetAzimuth { get; set; }

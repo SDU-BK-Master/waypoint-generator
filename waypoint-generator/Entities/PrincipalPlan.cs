@@ -1,4 +1,4 @@
-public class Principal : BaseScanPlan
+public class PrincipalPlan : BaseScanPlan
 {
 	public double Start { get; set; }
 	public double Step { get; set; }

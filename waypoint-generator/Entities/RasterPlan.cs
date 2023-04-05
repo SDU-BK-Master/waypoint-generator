@@ -1,4 +1,4 @@
-public class Raster : BaseScanPlan
+public class RasterPlan : BaseScanPlan
 {
     public double AzimuthStart { get; set; }
     public double AzimuthStep { get; set; }

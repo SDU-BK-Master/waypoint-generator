@@ -1,4 +1,4 @@
-public class BeamFinding : BaseCalibrationPlan
+public class BeamFindingPlan : BaseCalibrationPlan
 {
     public double StartAzimuth { get; set; }
     public double StepAzimuth { get; set; }

@@ -28,26 +28,14 @@ namespace waypoint_generator.Models.RasterPlan
 		[Required]
 		public double Radius { get; set; }
 
+		[Required]
 		public int Polarization { get; set; }
 
+		[Required]
+		public int Direction { get; set; }
 
-		public enum PolarizationEnum
-		{
-			Co,
-			Cross
-		}
-		public enum Direction
-		{
-			Increasing,
-			Decreasing,
-			Alternating
-		}
+		[Required]
+		public int Plane { get; set; }
 
-		public enum Plane
-		{
-			Azimuth,
-			Elevation,
-			Diagonal
-		}
 	}
 }

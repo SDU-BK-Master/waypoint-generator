@@ -1,12 +1,13 @@
-using asset_management.Controllers;
+using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
-using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using waypoint_generator.Models.ScanPlan;
 
 public interface IScanPlanService
 {
     IEnumerable<BaseScanPlan> GetAll();
-    BaseScanPlan GetById(BaseScanPlan id);
+    BaseScanPlan GetById(int id);
     BaseScanPlan Create(BaseScanPlan model);
     BaseScanPlan Update(int id, BaseScanPlan model);
     void Delete(int id);
@@ -14,9 +15,9 @@ public interface IScanPlanService
 
 public class ScanPlanService : IScanPlanService
 {
-
-    private DataContext _context;
+    private readonly DataContext _context;
     private readonly IMapper _mapper;
+
     public ScanPlanService(DataContext context, IMapper mapper)
     {
         _context = context;
@@ -25,47 +26,38 @@ public class ScanPlanService : IScanPlanService
 
     public IEnumerable<BaseScanPlan> GetAll()
     {
-        return _context.BaseScanPlan;
+        return _context.ScanPlans;
     }
 
-    public BaseScanPlan GetById(BaseScanPlan baseScan)
+    public BaseScanPlan GetById(int id)
     {
-        return baseScan;
+        var scanPlan = _context.ScanPlans.Find(id);
+        if (scanPlan == null) throw new KeyNotFoundException("Scan plan not found");
+        return scanPlan;
     }
-    public BaseScanPlan Create(ScanPlanCreateRequest model)
+
+    public BaseScanPlan Create(BaseScanPlan model)
     {
-        var mission = _mapper.Map<BaseScanPlan>(model);
-        _context.Add(mission);
+        _context.ScanPlans.Add(model);
+        _context.SaveChanges();
+        return model;
+    }
+
+    public BaseScanPlan Update(int id, BaseScanPlan model)
+    {
+        var scanPlan = GetById(id);
+
+        _mapper.Map(model, scanPlan);
+        _context.Entry(scanPlan).State = EntityState.Modified;
         _context.SaveChanges();
 
-        return mission;
-    }
-
-    public BaseScanPlan Update(int id, ScanPlanUpdateRequest model)
-    {
-        var mission = getMission(id);
-
-        _mapper.Map(model, mission);
-        _context.Missions.Update(mission);
-        _context.SaveChanges();
-
-        return mission;
+        return scanPlan;
     }
 
     public void Delete(int id)
     {
-        var mission = getMission(id);
-        _context.Missions.Remove(mission);
+        var scanPlan = GetById(id);
+        _context.ScanPlans.Remove(scanPlan);
         _context.SaveChanges();
-    }
-
-
-
-    // Helper Function
-    private BaseScanPlan getMission(int id)
-    {
-        var mission = _context.Missions.Find(id);
-        if (mission == null) throw new KeyNotFoundException("Mission not found");
-        return mission;
     }
 }
