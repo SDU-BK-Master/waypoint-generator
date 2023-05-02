@@ -1,13 +1,12 @@
-using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
+
 public class DataContext : DbContext
 {
     public DbSet<BaseScanPlan> ScanPlans { get; set; }
     public DbSet<BaseCalibrationPlan> CalibrationPlans { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-=> options.UseSqlite(@"DataSource=mydatabase.db;");
+    => options.UseNpgsql("Host=postgres; Database=test; Username=postgres; Password=postgres");
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

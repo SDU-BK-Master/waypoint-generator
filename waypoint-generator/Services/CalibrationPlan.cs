@@ -26,13 +26,13 @@ public class CalibrationPlanService : ICalibrationPlanService
 
     public Dictionary<string, object> GetAll()
     {
-        var single_point = _context.ScanPlans.OfType<SinglePointPlan>().ToList();
-        var principal = _context.ScanPlans.OfType<PrincipalPlan>().ToList();
+        var beam_finding = _context.CalibrationPlans.OfType<BeamFindingPlan>().ToList();
+        var roll_alignment = _context.CalibrationPlans.OfType<RollAlignmentPlan>().ToList();
 
         var plan_dict = new Dictionary<string, object>
         {
-            { "SinglePointScans", single_point },
-            { "PrincipalScans", principal },
+            { "BeamFindingPlans", beam_finding },
+            { "RollAlignmentPlans", roll_alignment },
         };
 
         return plan_dict;
