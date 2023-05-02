@@ -31,7 +31,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: ./waypoint-generator  
+         # context: ./waypoint-generator  
+          file: ./waypoint-generator/Dockerfile
           push: true
           tags: ${{ env.REPO_URL }}
   github-push:
