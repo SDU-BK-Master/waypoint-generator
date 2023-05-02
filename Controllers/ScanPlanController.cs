@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using waypoint_generator.Models.ScanPlan;
 
@@ -5,6 +6,7 @@ namespace asset_management.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowSpecificOrigin")]
     public class ScanPlanController : ControllerBase
     {
         private IScanPlanService _scanPlanService;

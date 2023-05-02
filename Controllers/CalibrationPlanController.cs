@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using waypoint_generator.Models.CalibrationPlan;
 using waypoint_generator.Models.ScanPlan;
 
@@ -6,6 +7,7 @@ namespace asset_management.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowSpecificOrigin")]
     public class CalibrationPlanController : ControllerBase
     {
         private ICalibrationPlanService _calibrationPlanService;
