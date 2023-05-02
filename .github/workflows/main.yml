@@ -31,6 +31,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
+          context: ./waypoint-generator  
           push: true
           tags: ${{ env.REPO_URL }}
   github-push:
@@ -50,7 +51,7 @@ jobs:
           ref: main
           token: ${{ secrets.ACCESS_TOKEN }}
       - run: |
-          cd missions
+          cd waypoints
           git config user.name "CI"
           git config user.email "ci@quadsat.com"
           tag=${{ env.REPO_URL }} yq -i '.spec.template.spec.containers[0].image = env(tag)' deployment-manifest.yml
