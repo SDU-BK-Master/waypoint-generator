@@ -6,7 +6,7 @@ public class DataContext : DbContext
     public DbSet<BaseCalibrationPlan> CalibrationPlans { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-    => options.UseNpgsql("Host=localhost; Database=test; Username=postgres; Password=postgres");
+    => options.UseNpgsql("Host=postgres; Database=test; Username=postgres; Password=postgres");
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
