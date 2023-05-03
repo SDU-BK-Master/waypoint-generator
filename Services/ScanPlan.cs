@@ -4,9 +4,9 @@ using waypoint_generator.Models.ScanPlan;
 
 public interface IScanPlanService
 {
-    Dictionary<string, object> GetAll();
+    IEnumerable<Object> GetAll();
     BaseScanPlan GetById(int id);
-    Dictionary<string, object> GetAllByMissionId(int missionId);
+    IEnumerable<Object> GetAllByMissionId(int missionId);
     BaseScanPlan Create(ScanPlanCreateRequest model);
     BaseScanPlan Update(int id, ScanPlanUpdateRequest model);
     void Delete(int id);
@@ -23,20 +23,20 @@ public class ScanPlanService : IScanPlanService
         _mapper = mapper;
     }
 
-    public Dictionary<string, object> GetAll()
+    public IEnumerable<Object> GetAll()
     {
         var single_point = _context.ScanPlans.OfType<SinglePointPlan>().ToList();
         var principal = _context.ScanPlans.OfType<PrincipalPlan>().ToList();
         var raster = _context.ScanPlans.OfType<RasterPlan>().ToList();
 
-        var plan_dict = new Dictionary<string, object>
-        {
-            { "SinglePointScans", single_point },
-            { "PrincipalScans", principal },
-            { "RasterScans", raster }
-        };
 
-        return plan_dict;
+        var list = new List<object> { single_point, principal, raster };
+        list.AddRange(single_point);
+        list.AddRange(principal);
+        list.AddRange(raster);
+
+        return list;
+
     }
 
     public BaseScanPlan GetById(int id)
@@ -45,20 +45,18 @@ public class ScanPlanService : IScanPlanService
         if (scanPlan == null) throw new KeyNotFoundException("Scan plan not found");
         return scanPlan;
     }
-    public Dictionary<string, object> GetAllByMissionId(int missionId)
+    public IEnumerable<Object> GetAllByMissionId(int missionId)
     {
         var single_point = _context.ScanPlans.Where(Plan => Plan.MissionID == missionId).OfType<SinglePointPlan>().ToList();
         var principal = _context.ScanPlans.Where(Plan => Plan.MissionID == missionId).OfType<PrincipalPlan>().ToList();
         var raster = _context.ScanPlans.Where(Plan => Plan.MissionID == missionId).OfType<RasterPlan>().ToList();
 
-        var plan_dict = new Dictionary<string, object>
-        {
-            { "SinglePointPlans", single_point },
-            { "PrincipalPlans", principal },
-            { "RasterPlans", raster }
-        };
- 
-        return plan_dict;
+        var list  = new List<object> { single_point, principal, raster};
+        list.AddRange(single_point);
+        list.AddRange(principal);
+        list.AddRange(raster);
+
+        return list;
     }
     public BaseScanPlan Create(ScanPlanCreateRequest model)
     {

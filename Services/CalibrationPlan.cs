@@ -5,9 +5,9 @@ using waypoint_generator.Models.CalibrationPlan;
 
 public interface ICalibrationPlanService
 {
-    Dictionary<string, object> GetAll();
+    IEnumerable<Object> GetAll();
     BaseCalibrationPlan GetById(int id);
-    Dictionary<string, object> GetAllByMissionId(int missionId);
+    IEnumerable<Object> GetAllByMissionId(int missionId);
     BaseCalibrationPlan Create(CalibrationPlanCreateRequest model);
     BaseCalibrationPlan Update(int id, CalibrationPlanUpdateRequest model);
     void Delete(int id);
@@ -24,38 +24,34 @@ public class CalibrationPlanService : ICalibrationPlanService
         _mapper = mapper;
     }
 
-    public Dictionary<string, object> GetAll()
+    public IEnumerable<Object> GetAll()
     {
         var beam_finding = _context.CalibrationPlans.OfType<BeamFindingPlan>().ToList();
         var roll_alignment = _context.CalibrationPlans.OfType<RollAlignmentPlan>().ToList();
 
-        var plan_dict = new Dictionary<string, object>
-        {
-            { "BeamFindingPlans", beam_finding },
-            { "RollAlignmentPlans", roll_alignment },
-        };
+        var list = new List<object>();
+        list.Add(beam_finding);
+        list.Add(roll_alignment);
 
-        return plan_dict;
+        return list;
     }
 
     public BaseCalibrationPlan GetById(int id)
     {
         var calibrationPlan = _context.CalibrationPlans.Find(id);
-        if (calibrationPlan == null) throw new KeyNotFoundException("Scan plan not found");
+        if (calibrationPlan == null) throw new KeyNotFoundException("Calibration plan not found");
         return calibrationPlan;
     }
-    public Dictionary<string, object> GetAllByMissionId(int missionId)
+    public IEnumerable<Object> GetAllByMissionId(int missionId)
     {
         var beam_finding = _context.CalibrationPlans.Where(Plan => Plan.MissionID == missionId).OfType<BeamFindingPlan>().ToList();
         var roll_alignment = _context.CalibrationPlans.Where(Plan => Plan.MissionID == missionId).OfType<RollAlignmentPlan>().ToList();
 
-        var plan_dict = new Dictionary<string, object>
-        {
-            { "BeamFindingPlans", beam_finding },
-            { "RollAlignmentPlans", roll_alignment },
-        };
+        var list = new List<object>();
+        list.Add(beam_finding);
+        list.Add(roll_alignment);
 
-        return plan_dict;
+        return list;
     }
     public BaseCalibrationPlan Create(CalibrationPlanCreateRequest model)
     {
