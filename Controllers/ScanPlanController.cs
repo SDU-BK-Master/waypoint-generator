@@ -4,9 +4,9 @@ using waypoint_generator.Models.ScanPlan;
 
 namespace asset_management.Controllers
 {
+    [EnableCors("AllowSpecificOrigin")]
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors("AllowSpecificOrigin")]
     public class ScanPlanController : ControllerBase
     {
         private IScanPlanService _scanPlanService;

@@ -5,9 +5,10 @@ using waypoint_generator.Models.ScanPlan;
 
 namespace asset_management.Controllers
 {
+    [EnableCors("AllowSpecificOrigin")]
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors("AllowSpecificOrigin")]
+
     public class CalibrationPlanController : ControllerBase
     {
         private ICalibrationPlanService _calibrationPlanService;
