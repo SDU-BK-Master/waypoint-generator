@@ -30,8 +30,8 @@ public class CalibrationPlanService : ICalibrationPlanService
         var roll_alignment = _context.CalibrationPlans.OfType<RollAlignmentPlan>().ToList();
 
         var list = new List<object>();
-        list.Add(beam_finding);
-        list.Add(roll_alignment);
+        list.AddRange(beam_finding);
+        list.AddRange(roll_alignment);
 
         return list;
     }
@@ -48,8 +48,8 @@ public class CalibrationPlanService : ICalibrationPlanService
         var roll_alignment = _context.CalibrationPlans.Where(Plan => Plan.MissionID == missionId).OfType<RollAlignmentPlan>().ToList();
 
         var list = new List<object>();
-        list.Add(beam_finding);
-        list.Add(roll_alignment);
+        list.AddRange(beam_finding);
+        list.AddRange(roll_alignment);
 
         return list;
     }

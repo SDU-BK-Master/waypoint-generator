@@ -30,7 +30,7 @@ public class ScanPlanService : IScanPlanService
         var raster = _context.ScanPlans.OfType<RasterPlan>().ToList();
 
 
-        var list = new List<object> { single_point, principal, raster };
+        var list = new List<object>();
         list.AddRange(single_point);
         list.AddRange(principal);
         list.AddRange(raster);
@@ -51,10 +51,11 @@ public class ScanPlanService : IScanPlanService
         var principal = _context.ScanPlans.Where(Plan => Plan.MissionID == missionId).OfType<PrincipalPlan>().ToList();
         var raster = _context.ScanPlans.Where(Plan => Plan.MissionID == missionId).OfType<RasterPlan>().ToList();
 
-        var list  = new List<object> { single_point, principal, raster};
+        var list  = new List<object>();
         list.AddRange(single_point);
         list.AddRange(principal);
         list.AddRange(raster);
+
 
         return list;
     }
